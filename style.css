@@ -1,0 +1,771 @@
+/* ==========================================================================
+   AI CONSTRUCTION - MAIN STYLESHEET
+   Theme: Dark Navy Background, White Text, Vibrant Orange Highlights
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS VARIABLES (Colors, Spacing, Typography)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Color Palette */
+  --bg-dark-navy: #090e1f;       /* Deepest navy for main body background */
+  --bg-card-navy: #121c38;       /* Medium navy for cards and containers */
+  --bg-card-hover: #172447;      /* Hover state for navy cards */
+  --bg-blueprint: #0c1833;       /* Architectural blueprint background */
+  
+  --text-white: #ffffff;          /* Primary white text */
+  --text-light: #e2e8f0;          /* Secondary soft white text */
+  --text-muted: #94a3b8;          /* Muted gray text for descriptions */
+
+  --orange-primary: #ff6a00;     /* Vibrant construction orange for CTAs */
+  --orange-hover: #e55a00;       /* Darker orange for button hover states */
+  --orange-glow: rgba(255, 106, 0, 0.25); /* Subtle glowing shadow */
+  --orange-subtle: rgba(255, 106, 0, 0.12); /* Light orange badge background */
+
+  --border-subtle: rgba(255, 255, 255, 0.1); /* Soft card border */
+  --border-blueprint: rgba(56, 189, 248, 0.3); /* Subtle architectural blueprint line */
+
+  /* Typography & Layout */
+  --font-main: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --max-width: 1200px;
+  --transition-fast: 0.25s ease;
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET & BASE STYLES
+   -------------------------------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-dark-navy);
+  color: var(--text-white);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Reusable Container */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Orange text highlight class */
+.highlight {
+  color: var(--orange-primary);
+}
+
+/* --------------------------------------------------------------------------
+   3. NAVIGATION BAR
+   -------------------------------------------------------------------------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: rgba(9, 14, 31, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 16px 0;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-white);
+  letter-spacing: -0.5px;
+}
+
+.logo-icon {
+  font-size: 1.5rem;
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--orange-primary);
+}
+
+/* Nav Action Button */
+.btn-nav {
+  padding: 8px 18px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  background-color: transparent;
+  color: var(--orange-primary);
+  border: 1px solid var(--orange-primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.btn-nav:hover {
+  background-color: var(--orange-primary);
+  color: var(--text-white);
+  box-shadow: 0 4px 14px var(--orange-glow);
+}
+
+/* --------------------------------------------------------------------------
+   4. BUTTON STYLES
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition-fast);
+  border-radius: 8px;
+}
+
+/* Primary Button (Orange CTA) */
+.btn-primary {
+  background-color: var(--orange-primary);
+  color: var(--text-white);
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 15px 32px;
+  box-shadow: 0 6px 20px var(--orange-glow);
+}
+
+.btn-primary:hover {
+  background-color: var(--orange-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 106, 0, 0.4);
+}
+
+/* Secondary Button (Navy/Translucent) */
+.btn-secondary {
+  background-color: var(--bg-card-navy);
+  color: var(--text-light);
+  font-size: 1.05rem;
+  font-weight: 500;
+  padding: 15px 28px;
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-card-hover);
+  color: var(--text-white);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   5. HERO SECTION
+   -------------------------------------------------------------------------- */
+.hero {
+  padding: 80px 0 100px;
+  background: radial-gradient(circle at 10% 20%, rgba(255, 106, 0, 0.08) 0%, transparent 40%),
+              radial-gradient(circle at 90% 80%, rgba(18, 28, 56, 0.6) 0%, transparent 50%);
+}
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 1.15fr 0.95fr;
+  align-items: center;
+  gap: 50px;
+}
+
+/* Badge above title */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--orange-subtle);
+  border: 1px solid rgba(255, 106, 0, 0.35);
+  color: var(--orange-primary);
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--orange-primary);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--orange-primary);
+}
+
+/* Hero Typography */
+.hero-title {
+  font-size: 3.25rem;
+  line-height: 1.15;
+  font-weight: 800;
+  color: var(--text-white);
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+
+.hero-description {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 36px;
+  max-width: 560px;
+}
+
+/* Hero Buttons */
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+/* Quick Stats Bar */
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-white);
+}
+
+.stat-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.stat-divider {
+  width: 1px;
+  height: 36px;
+  background-color: var(--border-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   6. HERO BLUEPRINT PREVIEW CARD
+   -------------------------------------------------------------------------- */
+.blueprint-card {
+  background-color: var(--bg-blueprint);
+  border: 1px solid rgba(255, 106, 0, 0.25);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 106, 0, 0.08);
+  /* Blueprint architectural grid effect */
+  background-image: 
+    linear-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Blueprint Header */
+.blueprint-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.85rem;
+}
+
+.blueprint-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot-red { background-color: #ef4444; }
+.dot-yellow { background-color: #f59e0b; }
+.dot-green { background-color: #10b981; }
+
+.blueprint-tag {
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.blueprint-status {
+  background-color: var(--orange-subtle);
+  color: var(--orange-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 106, 0, 0.3);
+}
+
+/* Simulated Floor Plan Grid */
+.floor-plan {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 110px 100px 90px;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Common Room Styling */
+.room {
+  background-color: rgba(18, 28, 56, 0.85);
+  border: 1.5px dashed rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all var(--transition-fast);
+}
+
+.room:hover {
+  border-color: var(--orange-primary);
+  background-color: rgba(255, 106, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.room-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-white);
+}
+
+.room-size {
+  font-size: 0.75rem;
+  color: var(--orange-primary);
+  font-weight: 600;
+}
+
+/* Room Grid Placements */
+.room-living {
+  grid-column: 1 / 3;
+  grid-row: 1 / 2;
+  border-style: solid;
+  border-color: rgba(255, 106, 0, 0.4);
+}
+
+.room-kitchen {
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+}
+
+.room-master {
+  grid-column: 1 / 2;
+  grid-row: 2 / 4;
+}
+
+.room-bedroom2 {
+  grid-column: 2 / 4;
+  grid-row: 2 / 3;
+}
+
+.room-bath1 {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+}
+
+.room-bath2 {
+  grid-column: 3 / 4;
+  grid-row: 3 / 4;
+}
+
+/* Blueprint Footer Meta */
+.blueprint-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.meta-item strong {
+  color: var(--text-white);
+}
+
+.highlight-meta {
+  color: var(--orange-primary);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   7. HOW IT WORKS / FEATURES SECTION
+   -------------------------------------------------------------------------- */
+.features-section {
+  padding: 80px 0;
+  background-color: #0b1329;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.section-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 50px;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: 12px;
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+}
+
+/* Steps Grid */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.step-card {
+  background-color: var(--bg-card-navy);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 32px 24px;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.step-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 106, 0, 0.4);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+}
+
+/* Featured middle card with subtle orange accent */
+.highlight-card {
+  border-color: rgba(255, 106, 0, 0.4);
+  background-color: #142142;
+}
+
+.step-badge {
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--orange-primary);
+  background-color: var(--orange-subtle);
+  border: 1px solid rgba(255, 106, 0, 0.3);
+  padding: 6px 14px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.step-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-white);
+  margin-bottom: 12px;
+}
+
+.step-description {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   8. PLAN YOUR DREAM HOME SECTION
+   -------------------------------------------------------------------------- */
+.plan-section {
+  padding: 90px 0;
+  background: radial-gradient(circle at 50% 10%, rgba(255, 106, 0, 0.06) 0%, transparent 60%),
+              #080e20;
+  border-top: 1px solid var(--border-subtle);
+  scroll-margin-top: 80px; /* Ensures sticky navbar does not overlap heading when scrolled to */
+}
+
+.plan-card {
+  max-width: 860px;
+  margin: 0 auto;
+  background-color: var(--bg-card-navy);
+  border: 1px solid rgba(255, 106, 0, 0.25);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 106, 0, 0.05);
+}
+
+/* 6-Field Plot Details Form Grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px 20px;
+  margin-bottom: 32px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-light);
+}
+
+.form-field input,
+.form-field select {
+  width: 100%;
+  background-color: #090f23;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 13px 14px;
+  color: var(--text-white);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: all var(--transition-fast);
+}
+
+.form-field input::placeholder {
+  color: #64748b;
+}
+
+.form-field input:hover,
+.form-field select:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  outline: none;
+  border-color: var(--orange-primary);
+  box-shadow: 0 0 0 3px rgba(255, 106, 0, 0.2);
+  background-color: #0c142e;
+}
+
+/* Custom styled dropdown arrow matching the orange theme */
+.form-field select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23ff6a00' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 38px;
+  cursor: pointer;
+}
+
+.form-field select option {
+  background-color: #0c142e;
+  color: var(--text-white);
+}
+
+/* Submit Row */
+.form-submit-row {
+  text-align: center;
+}
+
+.btn-generate {
+  padding: 16px 38px;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   9. FOOTER
+   -------------------------------------------------------------------------- */
+.footer {
+  margin-top: auto;
+  background-color: #060914;
+  border-top: 1px solid var(--border-subtle);
+  padding: 30px 0;
+}
+
+.footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-copy {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.footer-copy strong {
+  color: var(--text-white);
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color var(--transition-fast);
+}
+
+.footer-links a:hover {
+  color: var(--orange-primary);
+}
+
+/* --------------------------------------------------------------------------
+   9. RESPONSIVE DESIGN (Tablets and Mobile)
+   -------------------------------------------------------------------------- */
+/* Tablets (under 992px) */
+@media (max-width: 992px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .hero-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero-stats {
+    justify-content: center;
+  }
+
+  .blueprint-card {
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  .steps-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile Devices (under 768px) */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 14px 0;
+  }
+
+  .nav-links {
+    display: none; /* Keeps mobile navbar minimal and clean without JS */
+  }
+
+  .hero {
+    padding: 50px 0 70px;
+  }
+
+  .hero-title {
+    font-size: 2.3rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+  }
+
+  .hero-stats {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  .blueprint-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .plan-card {
+    padding: 24px 18px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+
+  .btn-generate {
+    width: 100%;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
