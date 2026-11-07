@@ -239,7 +239,7 @@
 
         <!-- Planning Form Container -->
         <div class="plan-card">
-          <form class="plan-form" action="#" method="POST">
+          <form class="plan-form" id="plot-form" action="#" method="POST">
             
             <div class="form-grid">
               
@@ -303,14 +303,72 @@
 
             </div>
 
+            <!-- Error message container (shown if validation fails) -->
+            <div id="form-error" class="form-error" style="display: none;" role="alert"></div>
+
             <!-- Generate Floor Plan Button -->
             <div class="form-submit-row">
-              <button type="button" class="btn btn-primary btn-generate">
+              <button type="button" class="btn btn-primary btn-generate" id="generate-btn">
                 Generate Floor Plan
               </button>
             </div>
 
           </form>
+
+          <!-- Plan Summary Section (shown when plot details are valid) -->
+          <div id="plan-summary" class="plan-summary" style="display: none;">
+            <div class="summary-header">
+              <div class="summary-badge">
+                <span class="badge-dot"></span> Plan Requirements Summary
+              </div>
+              <h3 class="summary-title">Your Custom Plot & Room Summary</h3>
+              <p class="summary-subtitle">Here are the details you provided for your future floor plan:</p>
+            </div>
+
+            <div class="summary-grid">
+              <!-- Plot Length -->
+              <div class="summary-item">
+                <span class="summary-label">Plot Length</span>
+                <span class="summary-value" id="summary-length">-</span>
+              </div>
+
+              <!-- Plot Width -->
+              <div class="summary-item">
+                <span class="summary-label">Plot Width</span>
+                <span class="summary-value" id="summary-width">-</span>
+              </div>
+
+              <!-- Total Estimated Area -->
+              <div class="summary-item">
+                <span class="summary-label">Estimated Plot Area</span>
+                <span class="summary-value highlight" id="summary-area">-</span>
+              </div>
+
+              <!-- Number of Floors -->
+              <div class="summary-item">
+                <span class="summary-label">Number of Floors</span>
+                <span class="summary-value" id="summary-floors">-</span>
+              </div>
+
+              <!-- Number of Bedrooms -->
+              <div class="summary-item">
+                <span class="summary-label">Bedrooms</span>
+                <span class="summary-value" id="summary-bedrooms">-</span>
+              </div>
+
+              <!-- Number of Bathrooms -->
+              <div class="summary-item">
+                <span class="summary-label">Bathrooms</span>
+                <span class="summary-value" id="summary-bathrooms">-</span>
+              </div>
+
+              <!-- Kitchen Choice -->
+              <div class="summary-item">
+                <span class="summary-label">Kitchen Required</span>
+                <span class="summary-value" id="summary-kitchen">-</span>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -332,6 +390,107 @@
       </div>
     </div>
   </footer>
+
+  <!-- ========================================================= -->
+  <!-- JAVASCRIPT: Form Validation & Summary Display             -->
+  <!-- ========================================================= -->
+  <script>
+    // Wait until the HTML document has fully loaded
+    document.addEventListener('DOMContentLoaded', function () {
+      
+      // Step 1: Select input and dropdown fields by their IDs
+      const lengthInput = document.getElementById('plot-length');
+      const widthInput = document.getElementById('plot-width');
+      const floorsSelect = document.getElementById('floors');
+      const bedroomsSelect = document.getElementById('bedrooms');
+      const bathroomsSelect = document.getElementById('bathrooms');
+      const kitchenSelect = document.getElementById('kitchen');
+      
+      // Step 2: Select the action button, error message container, and summary card
+      const generateBtn = document.getElementById('generate-btn');
+      const formError = document.getElementById('form-error');
+      const planSummary = document.getElementById('plan-summary');
+
+      // Step 3: Select the summary text elements where values will be placed
+      const summaryLength = document.getElementById('summary-length');
+      const summaryWidth = document.getElementById('summary-width');
+      const summaryArea = document.getElementById('summary-area');
+      const summaryFloors = document.getElementById('summary-floors');
+      const summaryBedrooms = document.getElementById('summary-bedrooms');
+      const summaryBathrooms = document.getElementById('summary-bathrooms');
+      const summaryKitchen = document.getElementById('summary-kitchen');
+
+      // Main function to validate user inputs and display the plot summary
+      function handleGeneratePlan() {
+        // Read text values from Plot Length and Plot Width inputs (trimming extra whitespace)
+        const lengthValue = lengthInput.value.trim();
+        const widthValue = widthInput.value.trim();
+
+        // Convert the string inputs into numbers
+        const lengthNum = parseFloat(lengthValue);
+        const widthNum = parseFloat(widthValue);
+
+        // Check whether length is a valid, positive number
+        const isLengthValid = lengthValue !== '' && !isNaN(lengthNum) && lengthNum > 0;
+
+        // Check whether width is a valid, positive number
+        const isWidthValid = widthValue !== '' && !isNaN(widthNum) && widthNum > 0;
+
+        // Step 4: Validate inputs - if either value is missing or invalid, show a clear message
+        if (!isLengthValid || !isWidthValid) {
+          // Hide summary section if it was previously visible
+          planSummary.style.display = 'none';
+
+          // Determine the clear error message to display
+          if (!isLengthValid && !isWidthValid) {
+            formError.textContent = 'Please enter valid positive numbers for both Plot Length and Plot Width.';
+          } else if (!isLengthValid) {
+            formError.textContent = 'Please enter a valid positive number for Plot Length (in feet).';
+          } else {
+            formError.textContent = 'Please enter a valid positive number for Plot Width (in feet).';
+          }
+
+          // Make the error message visible near the form
+          formError.style.display = 'block';
+
+          // Smoothly scroll to the error message so the user immediately sees it
+          formError.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          return;
+        }
+
+        // Step 5: If validation passes, hide any existing error message
+        formError.textContent = '';
+        formError.style.display = 'none';
+
+        // Read dropdown values (or display 'Not specified' if unselected)
+        const floors = floorsSelect.value ? floorsSelect.value : 'Not specified';
+        const bedrooms = bedroomsSelect.value ? bedroomsSelect.value : 'Not specified';
+        const bathrooms = bathroomsSelect.value ? bathroomsSelect.value : 'Not specified';
+        const kitchen = kitchenSelect.value ? kitchenSelect.value : 'Not specified';
+
+        // Calculate estimated total plot area
+        const totalArea = lengthNum * widthNum;
+
+        // Step 6: Populate the summary section with the user's data
+        summaryLength.textContent = lengthNum + ' ft';
+        summaryWidth.textContent = widthNum + ' ft';
+        summaryArea.textContent = totalArea.toLocaleString() + ' sq.ft';
+        summaryFloors.textContent = floors;
+        summaryBedrooms.textContent = bedrooms;
+        summaryBathrooms.textContent = bathrooms;
+        summaryKitchen.textContent = kitchen;
+
+        // Step 7: Display the summary section below the form
+        planSummary.style.display = 'block';
+
+        // Smoothly scroll down to the summary section so the user can review it
+        planSummary.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      // Listen for click on the "Generate Floor Plan" button
+      generateBtn.addEventListener('click', handleGeneratePlan);
+    });
+  </script>
 
 </body>
 </html>
