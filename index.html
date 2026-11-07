@@ -368,6 +368,117 @@
                 <span class="summary-value" id="summary-kitchen">-</span>
               </div>
             </div>
+
+            <!-- ================================================= -->
+            <!-- 2D FLOOR PLAN PREVIEW                             -->
+            <!-- ================================================= -->
+            <div class="floor-plan-preview" id="floor-plan-preview">
+              
+              <!-- Preview Header with Dimensions Badge -->
+              <div class="preview-header">
+                <div class="preview-title-wrap">
+                  <h4 class="preview-title">📐 2D Floor Plan Preview</h4>
+                  <p class="preview-subtitle">Sample top-down room layout based on your plot dimensions</p>
+                </div>
+                <div class="preview-dim-badge">
+                  <span>Plot Boundary: </span>
+                  <strong id="preview-dim-tag">-</strong>
+                </div>
+              </div>
+
+              <!-- Top Dimension Indicator (Width) -->
+              <div class="dim-indicator dim-horizontal">
+                <span class="dim-line-left"></span>
+                <span class="dim-badge">Plot Width: <strong id="preview-width-tag">-</strong></span>
+                <span class="dim-line-right"></span>
+              </div>
+
+              <!-- Main Canvas Layout (Side dimension + Rectangular Plot Boundary) -->
+              <div class="preview-canvas-wrapper">
+                
+                <!-- Side Dimension Indicator (Length) -->
+                <div class="dim-indicator dim-vertical">
+                  <span class="dim-line-top"></span>
+                  <span class="dim-badge">Plot Length: <strong id="preview-length-tag">-</strong></span>
+                  <span class="dim-line-bottom"></span>
+                </div>
+
+                <!-- Rectangular Plot Boundary -->
+                <div class="plot-boundary" id="plot-boundary">
+                  
+                  <!-- Living Room Block -->
+                  <div class="room-block room-living">
+                    <div class="room-header">
+                      <span class="room-tag">Living Room</span>
+                      <span class="room-badge">Main Area</span>
+                    </div>
+                    <div class="room-footer">
+                      <span class="room-icon">🛋️</span>
+                      <span class="room-entry-tag">Main Entry 🚪</span>
+                    </div>
+                  </div>
+
+                  <!-- Kitchen Block -->
+                  <div class="room-block room-kitchen">
+                    <div class="room-header">
+                      <span class="room-tag">Kitchen</span>
+                      <span class="room-badge">Dining</span>
+                    </div>
+                    <div class="room-footer">
+                      <span class="room-icon">🍳</span>
+                      <span class="room-dimension">Modular</span>
+                    </div>
+                  </div>
+
+                  <!-- Bathroom Block -->
+                  <div class="room-block room-bath">
+                    <div class="room-header">
+                      <span class="room-tag">Bathroom</span>
+                      <span class="room-badge">Bath / WC</span>
+                    </div>
+                    <div class="room-footer">
+                      <span class="room-icon">🚿</span>
+                      <span class="room-dimension">Attached</span>
+                    </div>
+                  </div>
+
+                  <!-- Master Bedroom Block -->
+                  <div class="room-block room-master">
+                    <div class="room-header">
+                      <span class="room-tag">Bedroom (Master)</span>
+                      <span class="room-badge">Primary</span>
+                    </div>
+                    <div class="room-footer">
+                      <span class="room-icon">🛏️</span>
+                      <span class="room-dimension">Spacious</span>
+                    </div>
+                  </div>
+
+                  <!-- Bedroom 2 Block -->
+                  <div class="room-block room-bed2">
+                    <div class="room-header">
+                      <span class="room-tag">Bedroom 2</span>
+                      <span class="room-badge">Guest / Kids</span>
+                    </div>
+                    <div class="room-footer">
+                      <span class="room-icon">🛏️</span>
+                      <span class="room-dimension">Standard</span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Room Type Legend -->
+              <div class="preview-legend">
+                <div class="legend-item"><span class="legend-box box-living"></span> Living Room</div>
+                <div class="legend-item"><span class="legend-box box-master"></span> Master Bedroom</div>
+                <div class="legend-item"><span class="legend-box box-bed2"></span> Bedroom 2</div>
+                <div class="legend-item"><span class="legend-box box-kitchen"></span> Kitchen</div>
+                <div class="legend-item"><span class="legend-box box-bath"></span> Bathroom</div>
+              </div>
+
+            </div>
           </div>
         </div>
 
@@ -420,7 +531,12 @@
       const summaryBathrooms = document.getElementById('summary-bathrooms');
       const summaryKitchen = document.getElementById('summary-kitchen');
 
-      // Main function to validate user inputs and display the plot summary
+      // Step 3b: Select the 2D floor plan preview dimension elements
+      const previewDimTag = document.getElementById('preview-dim-tag');
+      const previewWidthTag = document.getElementById('preview-width-tag');
+      const previewLengthTag = document.getElementById('preview-length-tag');
+
+      // Main function to validate user inputs and display the plot summary & 2D preview
       function handleGeneratePlan() {
         // Read text values from Plot Length and Plot Width inputs (trimming extra whitespace)
         const lengthValue = lengthInput.value.trim();
@@ -480,7 +596,15 @@
         summaryBathrooms.textContent = bathrooms;
         summaryKitchen.textContent = kitchen;
 
-        // Step 7: Display the summary section below the form
+        // Step 7: Update the 2D floor plan preview dimensions dynamically
+        // Sets the overall plot boundary badge (e.g., "50 ft × 30 ft")
+        previewDimTag.textContent = lengthNum + ' ft × ' + widthNum + ' ft';
+        // Sets the horizontal plot width dimension indicator
+        previewWidthTag.textContent = widthNum + ' ft';
+        // Sets the vertical plot length dimension indicator
+        previewLengthTag.textContent = lengthNum + ' ft';
+
+        // Step 8: Display the summary and 2D floor plan preview section
         planSummary.style.display = 'block';
 
         // Smoothly scroll down to the summary section so the user can review it
